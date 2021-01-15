@@ -1,11 +1,19 @@
+const url = "https://assets.breatheco.de/apis/fake/contact/";
 const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
-			//Your data structures, A.K.A Entities
+			contacts: []
 		},
 		actions: {
-			//(Arrow) Functions that update the Store
-			// Remember to use the scope: scope.state.store & scope.setState()
+			fetchData: () => {
+				fetch(`${url}agenda/luc_agenda`)
+					.then(res => {
+						if (!res.ok) throw new Error(res.statusText);
+						return res.json();
+					})
+					.then(data => setStore({ contacts: data }))
+					.catch(err => console.error(err));
+			}
 		}
 	};
 };
