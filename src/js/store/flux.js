@@ -1,10 +1,32 @@
 const url = "https://assets.breatheco.de/apis/fake/contact/";
-const getState = ({ getStore, setStore }) => {
+const getState = ({ getStore, setStore, getActions }) => {
 	return {
 		store: {
 			contacts: []
 		},
 		actions: {
+			addContact: (a, b, c, d) => {
+				fetch(url, {
+					method: "POST",
+					body: JSON.stringify({
+						full_name: a,
+						email: b,
+						agenda_slug: "luc_agenda",
+						address: d,
+						phone: c
+					}),
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+					.then(() => {
+						getActions().fetchData();
+					})
+					.catch(error => {
+						//error handling
+						console.error(error);
+					});
+			},
 			fetchData: () => {
 				fetch(`${url}agenda/luc_agenda`)
 					.then(res => {

@@ -7,7 +7,14 @@ export const ContactCard = props => {
 	const [state, setState] = useState({
 		//initialize state here
 	});
-
+	function formatPhoneNumber(phoneNumberString) {
+		var cleaned = ("" + phoneNumberString).replace(/\D/g, "");
+		var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+		if (match) {
+			return "(" + match[1] + ") " + match[2] + "-" + match[3];
+		}
+		return null;
+	}
 	return (
 		<li className="list-group-item">
 			<div className="row w-100">
@@ -34,7 +41,7 @@ export const ContactCard = props => {
 						title=""
 						data-original-title="(870) 288-4149"
 					/>
-					<span className="text-muted small">(870) 288-4149</span>
+					<span className="text-muted small">{formatPhoneNumber(props.phone)}</span>
 					<br />
 					<span
 						className="fa fa-envelope fa-fw text-muted mr-3"
@@ -58,6 +65,7 @@ ContactCard.propTypes = {
 	onDelete: PropTypes.func,
 	name: PropTypes.string,
 	email: PropTypes.string,
+	phone: PropTypes.string,
 	address: PropTypes.string
 };
 
