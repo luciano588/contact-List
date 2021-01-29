@@ -27,6 +27,7 @@ export const Contacts = () => {
 									address={contact.address}
 									email={contact.email}
 									phone={contact.phone}
+									index={index}
 									onDelete={() => setState({ showModal: true })}
 								/>
 								// <Card
